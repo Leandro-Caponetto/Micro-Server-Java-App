@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:9000
+    description: Generated server url
+paths:
+  /user/{id}:
+    get:
+      tags:
+        - user-controller
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+        - user-controller
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      tags:
+        - user-controller
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /user:
+    post:
+      tags:
+        - user-controller
+      operationId: newUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+  /users:
+    get:
+      tags:
+        - user-controller
+      operationId: getAllUser
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellido:
+          type: string
+        edad:
+          type: integer
+          format: int32
+        email:
+          type: string
